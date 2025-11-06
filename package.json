@@ -1,13 +1,19 @@
 {
   "name": "pagebuilderv2",
-  "packageManager": "yarn@4.9.1",
-  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "start": "tsx src/index"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "tsup": "^8.5.0",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colligii/pagebuilderv2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colligii/pagebuilderv2/issues"
+  },
+  "homepage": "https://github.com/colligii/pagebuilderv2#readme",
+  "description": ""
 }
