@@ -1,3 +1,4 @@
+import { State } from "./state.js";
 export default function context(): {
     style: {
         registerCss(key: string, value: string): string;
@@ -14,6 +15,10 @@ export default function context(): {
     element: {
         getElemId(): string;
     };
+    page: {
+        setTitle(t: string | State): string;
+        getTitle(): string | undefined;
+    };
 };
 export interface Style {
     registerCss(key: string, value: string): string;
@@ -29,9 +34,14 @@ export interface Script {
 export interface Element {
     getElemId(): string;
 }
+export interface Page {
+    setTitle(title: string | State): string;
+    getTitle(): string | undefined;
+}
 export interface Context {
     style: Style;
     script: Script;
     element: Element;
+    page: Page;
 }
 //# sourceMappingURL=context.d.ts.map

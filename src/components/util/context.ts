@@ -1,3 +1,5 @@
+import { State } from "./state.js";
+
 export default function context() {
     function Style() {
 
@@ -135,10 +137,28 @@ export default function context() {
         }
     }
 
+    function Page() {
+        let title: string | undefined;
+        return {
+            setTitle(t: string| State) {
+                if(t instanceof State) {
+                    title = String(t.defaultValue);
+                } else {
+                    title = t;
+                }
+                return t as string;
+            },
+            getTitle() {
+                return title;
+            }
+        }
+    }
+
     return {
         style: Style(),
         script: Script(),
-        element: Element()
+        element: Element(),
+        page: Page()
     }
 }
 
@@ -159,8 +179,15 @@ export interface Element {
     getElemId(): string
 }
 
+export interface Page {
+    setTitle(title: string | State): string
+    getTitle(): string | undefined
+}
+
+
 export interface Context {
     style: Style
     script: Script
     element: Element
+    page: Page
 }

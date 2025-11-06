@@ -1,3 +1,4 @@
+import { State } from "./state.js";
 export default function context() {
     function Style() {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -108,10 +109,28 @@ export default function context() {
             }
         };
     }
+    function Page() {
+        let title;
+        return {
+            setTitle(t) {
+                if (t instanceof State) {
+                    title = String(t.defaultValue);
+                }
+                else {
+                    title = t;
+                }
+                return t;
+            },
+            getTitle() {
+                return title;
+            }
+        };
+    }
     return {
         style: Style(),
         script: Script(),
-        element: Element()
+        element: Element(),
+        page: Page()
     };
 }
 //# sourceMappingURL=context.js.map

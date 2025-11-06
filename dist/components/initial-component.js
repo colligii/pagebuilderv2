@@ -15,13 +15,14 @@ export class InitialComponent {
         const buildedComponent = component.build(ctx);
         const css = ctx.style.convertToCss();
         const script = ctx.script.convertToScript();
+        const title = ctx.page.getTitle() ?? this.title;
         return `
 <!DOCTYPE html>
 <html lang="${this.lang}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${this.title}</title>
+        <title>${title}</title>
         ${css?.length ? '<style>' + css + '</style>' : ''}
     </head>
     <body>
