@@ -12,7 +12,7 @@ export default function context(): {
         registerAnonFunc(script: Function): string;
         convertToScript(): string;
         registerState(stateId: string, initialValue: any): string;
-        registerChangeByStateId(stateId: string, fn: Function): string;
+        registerChangeByStateId(stateId: string, fnStr: string): string;
     };
     element: {
         getElemId(): string;
@@ -33,7 +33,7 @@ export interface Script {
     registerAnonFunc(script: Function): string;
     getFunctionCode(script: Function): string;
     registerState(stateId: string, initialValue: string): string;
-    registerChangeByStateId(stateId: string, fn: Function): string;
+    registerChangeByStateId(stateId: string, fnStr: string): string;
 }
 export interface Element {
     getElemId(): string;

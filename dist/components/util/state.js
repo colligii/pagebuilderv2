@@ -5,8 +5,8 @@ export function State(defVal, ctx, stateId) {
         get defaultValue() {
             return defVal;
         },
-        registerChange(fn) {
-            return ctx.script.registerChangeByStateId(stateId, fn);
+        registerChange(fnStr) {
+            return ctx.script.registerChangeByStateId(stateId, fnStr);
         }
     };
 }

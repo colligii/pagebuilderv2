@@ -8,8 +8,8 @@ export function State(defVal: string, ctx: Context, stateId: string) {
         get defaultValue() {
             return defVal;
         },
-        registerChange(fn: Function) {
-            return ctx.script.registerChangeByStateId(stateId, fn);
+        registerChange(fnStr: string) {
+            return ctx.script.registerChangeByStateId(stateId, fnStr);
         }
     }
 
@@ -18,5 +18,5 @@ export function State(defVal: string, ctx: Context, stateId: string) {
 export interface State {
     type: string;
     defaultValue: string;
-    registerChange(fn: Function): string
+    registerChange(fnStr: string): string
 }
