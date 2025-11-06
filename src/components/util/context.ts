@@ -171,7 +171,7 @@ export default function context() {
             setTitle(t: string| State) {
                 if(typeof t !== 'string' && t?.type === 'state') {
                     title = String(t.defaultValue);
-                    t.registerChange('document.body.title')
+                    t.registerChange('document.title')
                 } else {
                     title = t as string;
                 }
