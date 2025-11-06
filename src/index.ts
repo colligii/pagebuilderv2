@@ -1,4 +1,4 @@
-import closedComponent from "./components/closedComponent";
+import closedComponent from "./components/closedComponent.js";
 
 console.log(closedComponent({
     key: 'div',
