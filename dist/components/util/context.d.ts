@@ -7,6 +7,7 @@ export default function context(): {
     script: {
         getFunctionCode(fn: Function): string;
         registerScript(script: Function): string;
+        registerFunction(name: string, params: string[], fn: Function): string;
         registerAnonFunc(script: Function): string;
         convertToScript(): string;
     };
@@ -20,6 +21,7 @@ export interface Style {
 }
 export interface Script {
     convertToScript(): string;
+    registerFunction(name: string, params: string[], fn: Function): string;
     registerScript(script: Function): string;
     registerAnonFunc(script: Function): string;
     getFunctionCode(script: Function): string;

@@ -73,7 +73,7 @@ export default function context() {
     function Script() {
         const scripts: string[] = [];
 
-        
+
 
         return {
             getFunctionCode(fn: Function) {
@@ -87,6 +87,12 @@ export default function context() {
                 const fnString = this.getFunctionCode(script);
                 scripts.push(fnString);
                 return fnString;
+            },
+            registerFunction(name: string, params: string[], fn: Function): string {
+                const fnString = this.getFunctionCode(fn);
+                const endFn = `function ${name}(${params.join(', ')}) {${fnString}}`;
+                scripts.push(endFn);
+                return endFn;
             },
             registerAnonFunc(script: Function) {
                 const fnString = script.toString().replace('function anonymous(\n) {', '').replace(/}$/, '');
@@ -143,6 +149,7 @@ export interface Style {
 
 export interface Script {
     convertToScript(): string
+    registerFunction(name: string, params: string[], fn: Function): string
     registerScript(script: Function): string
     registerAnonFunc(script: Function): string
     getFunctionCode(script: Function): string

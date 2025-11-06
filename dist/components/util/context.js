@@ -71,6 +71,12 @@ export default function context() {
                 scripts.push(fnString);
                 return fnString;
             },
+            registerFunction(name, params, fn) {
+                const fnString = this.getFunctionCode(fn);
+                const endFn = `function ${name}(${params.join(', ')}) {${fnString}}`;
+                scripts.push(endFn);
+                return endFn;
+            },
             registerAnonFunc(script) {
                 const fnString = script.toString().replace('function anonymous(\n) {', '').replace(/}$/, '');
                 scripts.push(fnString);
