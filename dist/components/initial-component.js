@@ -32,10 +32,17 @@ export class InitialComponent {
     </body>
 </html>
         `, {
-            removeComments: true,
             collapseWhitespace: true,
-            minifyCSS: true,
-            minifyJS: true
+            removeComments: true,
+            minifyJS: {
+                mangle: {
+                    toplevel: true,
+                    reserved: ["SomeGlobalName"]
+                },
+                compress: {
+                // compressão opcional
+                }
+            }
         });
     }
 }

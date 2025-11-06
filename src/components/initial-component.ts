@@ -38,13 +38,19 @@ export class InitialComponent implements AsyncBaseComponent {
         ${script?.length ? '<script>' + script + '</script>' : ''}
     </body>
 </html>
-        `,
-            {
-                removeComments: true,
-                collapseWhitespace: true,
-                minifyCSS: true,
-                minifyJS: true
+        `, {
+            collapseWhitespace: true,
+            removeComments: true,
+            minifyJS: {
+                mangle: {
+                    toplevel: true,
+                    reserved: ["SomeGlobalName"]
+                },
+                compress: {
+                    // compressão opcional
+                }
             }
+        }
         )
     }
 }
