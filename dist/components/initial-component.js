@@ -13,6 +13,7 @@ export class InitialComponent {
         const ctx = context();
         const component = this.component(ctx);
         const buildedComponent = component.build(ctx);
+        const css = ctx.style.convertToCss();
         return `
 <!DOCTYPE html>
 <html lang="${this.lang}">
@@ -20,7 +21,7 @@ export class InitialComponent {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${this.title}</title>
-        <style>${ctx.style.convertToCss()}</style>
+        ${css?.length ? '<style>' + css + '</style>' : ''}
     </head>
     <body>
         ${buildedComponent}
