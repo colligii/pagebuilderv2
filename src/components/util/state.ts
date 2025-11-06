@@ -1,9 +1,20 @@
 import type { Context } from "./context.js";
 
-export class State {
-    defaultValue: any;
+export function State(defVal: string, ctx: Context, stateId: string) {
+    ctx.script.registerState(stateId, defVal);
 
-    constructor(defaultValue: any, ctx: Context) {
-        this.defaultValue = defaultValue;
+    return {
+        get defaultValue() {
+            return defVal;
+        },
+        registerChange(fn: Function) {
+            return ctx.script.registerChangeByStateId(stateId, fn);
+        }
     }
+
+}
+
+export interface State {
+    defaultValue: string;
+    registerChange(fn: Function): string
 }

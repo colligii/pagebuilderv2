@@ -11,6 +11,8 @@ export default function context(): {
         registerFunction(name: string, params: string[], fn: Function): string;
         registerAnonFunc(script: Function): string;
         convertToScript(): string;
+        registerState(stateId: string, initialValue: any): string;
+        registerChangeByStateId(stateId: string, fn: Function): string;
     };
     element: {
         getElemId(): string;
@@ -30,6 +32,8 @@ export interface Script {
     registerScript(script: Function): string;
     registerAnonFunc(script: Function): string;
     getFunctionCode(script: Function): string;
+    registerState(stateId: string, initialValue: string): string;
+    registerChangeByStateId(stateId: string, fn: Function): string;
 }
 export interface Element {
     getElemId(): string;

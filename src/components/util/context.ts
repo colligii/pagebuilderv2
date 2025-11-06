@@ -74,9 +74,7 @@ export default function context() {
 
     function Script() {
         const scripts: string[] = [];
-
-
-
+        const stateChangeFunction: { [p: string]: string[] } = {}
         return {
             getFunctionCode(fn: Function) {
                 const fnString = fn.toString()
@@ -102,7 +100,38 @@ export default function context() {
                 return fnString;
             },
             convertToScript() {
-                return scripts.join('\n');
+                let endScripts = structuredClone(scripts);
+                Object.entries(stateChangeFunction).forEach(([key, value]) => {
+                    endScripts.push(`function ${key}(${"val"+(key.replace('state', ''))}) {${value.join('\n')}}`);
+                })
+                return endScripts.join('\n');
+            },
+            registerState(stateId: string, initialValue: any) {
+                if(stateChangeFunction[`state${stateId}`])
+                    throw new Error("State with this id already defined")
+                
+                let value = '';
+                if(typeof initialValue === "string") {
+                    value = `"${initialValue}"`;
+                } else {
+                    value = `${initialValue}`;
+                }
+
+                stateChangeFunction[`state${stateId}`] = [
+                    `state${stateId} = val${stateId};`
+                ];
+                scripts.push(`let state${stateId} = ${value}`)
+                return stateId;
+            },
+            registerChangeByStateId(stateId: string, fn: Function) {
+                if(!stateChangeFunction[`state${stateId}`])
+                    throw new Error("State with this id is not defined")
+                
+                const fnStr = this.getFunctionCode(fn);
+
+                stateChangeFunction[`state${stateId}`]?.push(`${fnStr} = state${stateId}`)
+
+                return fnStr;
             }
         }
     }
@@ -143,8 +172,9 @@ export default function context() {
             setTitle(t: string| State) {
                 if(t instanceof State) {
                     title = String(t.defaultValue);
+                    t.registerChange(() => {document.body.title})
                 } else {
-                    title = t;
+                    title = t as string;
                 }
                 return t as string;
             },
@@ -173,6 +203,8 @@ export interface Script {
     registerScript(script: Function): string
     registerAnonFunc(script: Function): string
     getFunctionCode(script: Function): string
+    registerState(stateId: string, initialValue: string): string
+    registerChangeByStateId(stateId: string, fn: Function): string
 }
 
 export interface Element {
