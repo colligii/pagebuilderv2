@@ -8,8 +8,11 @@ export declare class TextComponent implements BaseComponent {
     css?: {
         [p: string]: string;
     };
+    events?: {
+        [p: string]: Function;
+    };
     text: string;
-    constructor({ key, props, text, css }: TextComponentProps);
+    constructor({ key, props, text, css, events }: TextComponentProps);
     build(ctx: Context): string;
 }
 export interface TextComponentProps {
@@ -19,6 +22,9 @@ export interface TextComponentProps {
     };
     css?: {
         [p: string]: string;
+    };
+    events?: {
+        [p: string]: Function;
     };
     text?: string;
 }

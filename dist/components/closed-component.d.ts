@@ -8,8 +8,11 @@ export declare class ClosedComponent implements BaseComponent {
     css: {
         [p: string]: string;
     };
+    events: {
+        [p: string]: Function;
+    };
     components: BaseComponent[];
-    constructor({ key, props, components, css }: ClosedComponentProps);
+    constructor({ key, props, components, css, events }: ClosedComponentProps);
     build(ctx: Context): string;
 }
 export interface ClosedComponentProps {
@@ -19,6 +22,9 @@ export interface ClosedComponentProps {
     };
     css?: {
         [p: string]: string;
+    };
+    events?: {
+        [p: string]: Function;
     };
     components?: BaseComponent[];
 }

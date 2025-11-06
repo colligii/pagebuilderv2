@@ -59,26 +59,53 @@ export default function context() {
     }
     function Script() {
         const scripts = [];
-        function getFunctionCode(fn) {
-            const fnString = fn.toString();
-            if (!/^\(\)[ ]{0,}=>[ ]{0,}\{/.test(fnString))
-                throw new Error('Provided function must be a arrow fn');
-            return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '').replace(/}$/, '').trim();
-        }
         return {
+            getFunctionCode(fn) {
+                const fnString = fn.toString();
+                if (!/^\(\)[ ]{0,}=>[ ]{0,}\{/.test(fnString))
+                    throw new Error('Provided function must be a arrow fn');
+                return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '').replace(/}$/, '').trim();
+            },
             registerScript(script) {
-                const fnString = getFunctionCode(script);
+                const fnString = this.getFunctionCode(script);
                 scripts.push(fnString);
-                return script;
+                return fnString;
+            },
+            registerAnonFunc(script) {
+                const fnString = script.toString().replace('function anonymous(\n) {', '').replace(/}$/, '');
+                scripts.push(fnString);
+                return fnString;
             },
             convertToScript() {
                 return scripts.join('\n');
             }
         };
     }
+    function Element() {
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        let counter = 27;
+        return {
+            getElemId() {
+                if (counter === 0) {
+                    counter++;
+                    return "a";
+                }
+                let str = "";
+                let copyCounter = counter;
+                while (copyCounter > 0) {
+                    const remaining = copyCounter % alphabet.length;
+                    str = alphabet[remaining] + str;
+                    copyCounter = Math.floor(copyCounter / alphabet.length);
+                }
+                counter++;
+                return str;
+            }
+        };
+    }
     return {
         style: Style(),
-        script: Script()
+        script: Script(),
+        element: Element()
     };
 }
 //# sourceMappingURL=context.js.map

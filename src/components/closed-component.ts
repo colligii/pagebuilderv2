@@ -6,17 +6,19 @@ export class ClosedComponent implements BaseComponent {
     key: string;
     props?: { [p: string]: string }
     css: { [p: string]: string }
+    events: { [p: string]: Function }
     components: BaseComponent[]
 
-    constructor({ key, props, components, css }: ClosedComponentProps) {
+    constructor({ key, props, components, css, events }: ClosedComponentProps) {
         this.key = key;
         this.props = props ?? {};
         this.css = css ?? {};
+        this.events = events ?? {};
         this.components = components ?? [];
     }
 
     build(ctx: Context) {
-        const initial = normalizeKeyProps(this.key, ctx, this.props, this.css);
+        const initial = normalizeKeyProps(this.key, ctx, this.props, this.css, this.events);
 
         const html = this.components.map(component => component.build(ctx)).join('');
 
@@ -28,5 +30,6 @@ export interface ClosedComponentProps {
     key: string,
     props?: { [p: string]: string },
     css?: { [p: string]: string },
+    events?: { [p: string]: Function },
     components?: BaseComponent[]
 }

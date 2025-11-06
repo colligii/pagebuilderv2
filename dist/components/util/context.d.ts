@@ -5,8 +5,13 @@ export default function context(): {
         registerBreakPoint(breakpointName: string, condition: string): string;
     };
     script: {
-        registerScript(script: Function): Function;
+        getFunctionCode(fn: Function): string;
+        registerScript(script: Function): string;
+        registerAnonFunc(script: Function): string;
         convertToScript(): string;
+    };
+    element: {
+        getElemId(): string;
     };
 };
 export interface Style {
@@ -16,8 +21,15 @@ export interface Style {
 export interface Script {
     convertToScript(): string;
     registerScript(script: Function): string;
+    registerAnonFunc(script: Function): string;
+    getFunctionCode(script: Function): string;
+}
+export interface Element {
+    getElemId(): string;
 }
 export interface Context {
     style: Style;
+    script: Script;
+    element: Element;
 }
 //# sourceMappingURL=context.d.ts.map

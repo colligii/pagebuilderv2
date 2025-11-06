@@ -31,7 +31,7 @@ export default function context() {
             registerCss(key: string, value: string): string {
                 const breakPointsRegex = new RegExp(`^(${Object.keys(breakpoints).join('|')}):`);
                 const matchesClassRegex = key.match(breakPointsRegex);
-                if(matchesClassRegex) {
+                if (matchesClassRegex) {
                     const breakpoints = matchesClassRegex[0].replace(':', '');
                     breakPointsStyles[breakpoints] = breakPointsStyles[breakpoints] ?? {};
                     breakPointsStyles[breakpoints][`${key.replace(matchesClassRegex[0], '')}: ${value}`] = breakPointsStyles[breakpoints][`${key.replace(matchesClassRegex[0], '')}: ${value}`] ?? getCodeToStyle();
@@ -49,16 +49,15 @@ export default function context() {
                 })];
 
                 const breakpointsStylesArr = Object.entries(breakPointsStyles);
-                
-                stylesArr = [...stylesArr, 
-                    ...breakpointsStylesArr.map(([breakpoint, value]) => {
-                        const allCss = Object.entries(value);
-                        return `${breakpoints[breakpoint]} {\n ${
-                            allCss.map(([css, className]) => {
-                                return `.${className} { ${css} }`
-                            }).join('\n')
+
+                stylesArr = [...stylesArr,
+                ...breakpointsStylesArr.map(([breakpoint, value]) => {
+                    const allCss = Object.entries(value);
+                    return `${breakpoints[breakpoint]} {\n ${allCss.map(([css, className]) => {
+                        return `.${className} { ${css} }`
+                    }).join('\n')
                         } \n}\n`
-                    })
+                })
                 ]
 
                 return stylesArr.join('\n')
@@ -74,19 +73,25 @@ export default function context() {
     function Script() {
         const scripts: string[] = [];
 
-        function getFunctionCode(fn: Function) {
-            const fnString = fn.toString()
-            if(!/^\(\)[ ]{0,}=>[ ]{0,}\{/.test(fnString))
-                throw new Error('Provided function must be a arrow fn');
-
-            return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '').replace(/}$/, '').trim();
-        }
+        
 
         return {
+            getFunctionCode(fn: Function) {
+                const fnString = fn.toString()
+                if (!/^\(\)[ ]{0,}=>[ ]{0,}\{/.test(fnString))
+                    throw new Error('Provided function must be a arrow fn');
+
+                return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '').replace(/}$/, '').trim();
+            },
             registerScript(script: Function) {
-                const fnString = getFunctionCode(script);
+                const fnString = this.getFunctionCode(script);
                 scripts.push(fnString);
-                return script;
+                return fnString;
+            },
+            registerAnonFunc(script: Function) {
+                const fnString = script.toString().replace('function anonymous(\n) {', '').replace(/}$/, '');
+                scripts.push(fnString);
+                return fnString;
             },
             convertToScript() {
                 return scripts.join('\n');
@@ -94,9 +99,40 @@ export default function context() {
         }
     }
 
+    function Element() {
+
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
+        let counter = 27;
+
+
+        return {
+            getElemId() {
+                if (counter === 0) {
+                    counter++;
+                    return "a";
+                }
+
+                let str = "";
+                let copyCounter = counter;
+
+                while (copyCounter > 0) {
+                    const remaining = copyCounter % alphabet.length;
+                    str = alphabet[remaining] + str;
+                    copyCounter = Math.floor(copyCounter / alphabet.length);
+                }
+
+                counter++;
+
+                return str;
+            }
+
+        }
+    }
+
     return {
         style: Style(),
-        script: Script()
+        script: Script(),
+        element: Element()
     }
 }
 
@@ -108,8 +144,16 @@ export interface Style {
 export interface Script {
     convertToScript(): string
     registerScript(script: Function): string
+    registerAnonFunc(script: Function): string
+    getFunctionCode(script: Function): string
+}
+
+export interface Element {
+    getElemId(): string
 }
 
 export interface Context {
     style: Style
+    script: Script
+    element: Element
 }
