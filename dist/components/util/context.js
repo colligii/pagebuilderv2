@@ -69,7 +69,13 @@ export default function context() {
                 return fnString
                     .replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '')
                     .replace(/}$/, '')
-                    .replace(/pagebuilder\.getValueByStateId\(['"`]([0-9a-zA-Z]+)['"`]\)/ig, (_match, id) => `state${id}`)
+                    .replace(/pagebuilder\.getValueByStateId\(['"][0-9a-zA-Z]+['"]\)/ig, (key) => { const keyCleared = key.replace(/pagebuilder\.getValueByStateId\(['"]/, '').replace(/['"]\)$/, ''); return `state${keyCleared}`; })
+                    .replace(/pagebuilder\.setValueByStateId\(['"][0-9a-zA-Z]+['"][ ]{0,}\,[ ]{0,}['"][0-9a-zA-Z]+['"]\)/ig, (key) => {
+                    const keyCleared = key.replace(/pagebuilder\.setValueByStateId\(['"]/, '').replace(/\)$/, '');
+                    let [stateId, value] = keyCleared.split(',');
+                    stateId = stateId?.replace(/['"]/ig, '');
+                    return `state${stateId}fn(${value})`;
+                })
                     .trim();
             },
             registerScript(script) {
