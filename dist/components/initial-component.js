@@ -35,13 +35,8 @@ export class InitialComponent {
             collapseWhitespace: true,
             removeComments: true,
             minifyJS: {
-                mangle: {
-                    toplevel: true,
-                    reserved: ["SomeGlobalName"]
-                },
-                compress: {
-                // compressão opcional
-                }
+                compress: true,
+                mangle: true
             }
         });
     }

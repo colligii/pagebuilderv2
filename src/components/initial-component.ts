@@ -42,13 +42,8 @@ export class InitialComponent implements AsyncBaseComponent {
             collapseWhitespace: true,
             removeComments: true,
             minifyJS: {
-                mangle: {
-                    toplevel: true,
-                    reserved: ["SomeGlobalName"]
-                },
-                compress: {
-                    // compressão opcional
-                }
+                compress: true,
+                mangle: true
             }
         }
         )
