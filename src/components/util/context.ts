@@ -76,10 +76,10 @@ export default function context() {
 
         function getFunctionCode(fn: Function) {
             const fnString = fn.toString()
-            if(!/^\(\)[ ]{0,}=>[ ]{0,}/.test(fnString))
+            if(!/^\(\)[ ]{0,}=>[ ]{0,}\{/.test(fnString))
                 throw new Error('Provided function must be a arrow fn');
 
-            return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}/, '').replace(/}$/, '');
+            return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '').replace(/}$/, '');
         }
 
         return {
