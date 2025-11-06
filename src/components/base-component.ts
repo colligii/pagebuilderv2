@@ -1,3 +1,3 @@
-export interface BaseComponente {
+export interface BaseComponent {
     build(): string
 }

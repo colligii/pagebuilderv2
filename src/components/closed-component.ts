@@ -1,6 +1,7 @@
+import { BaseComponent } from "./base-component";
 import normalizeKeyProps from "./util/normalizeKeyProps";
 
-export class ClosedComponent {
+export class ClosedComponent implements BaseComponent {
     key: string;
     props?: { [p: string]: string }
 
