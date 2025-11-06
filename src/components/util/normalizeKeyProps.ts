@@ -20,7 +20,7 @@ export default function normalizeKeyProps(key: string, ctx?: Context, props: { [
     if(eventsEntries.length) {
         props.id = props.id ?? ctx?.element.getElemId() as string;
         eventsEntries.forEach(([eventName, eventFn]) => {
-            ctx?.script.registerAnonFunc(new Function(`document.querySelector('#${props.id}).addEventListener('${eventName}', () => {${ctx?.script.getFunctionCode(eventFn) as string}})`))
+            ctx?.script.registerAnonFunc(new Function(`document.querySelector('#${props.id}').addEventListener('${eventName}', () => {${ctx?.script.getFunctionCode(eventFn) as string}})`))
         })
     }
 
