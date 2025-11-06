@@ -129,6 +129,8 @@ export default function context() {
                 
                 const fnStr = this.getFunctionCode(fn);
 
+                console.log(fnStr, stateChangeFunction[`state${stateId}`])
+
                 stateChangeFunction[`state${stateId}`]?.push(`${fnStr} = state${stateId}`)
 
                 return fnStr;
