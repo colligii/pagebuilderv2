@@ -1,4 +1,4 @@
-import { type BaseComponent } from "./base-component";
+import { type BaseComponent } from "./base-component.js";
 export declare class ClosedComponent implements BaseComponent {
     key: string;
     props?: {

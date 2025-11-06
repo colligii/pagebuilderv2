@@ -1,5 +1,5 @@
-import { type BaseComponent } from "./base-component";
-import normalizeKeyProps from "./util/normalizeKeyProps";
+import { type BaseComponent } from "./base-component.js";
+import normalizeKeyProps from "./util/normalizeKeyProps.js";
 
 export class ClosedComponent implements BaseComponent {
     key: string;
@@ -9,7 +9,7 @@ export class ClosedComponent implements BaseComponent {
         this.key = key;
         this.props = props ?? {};
     }
-    
+
     build() {
         const initial = normalizeKeyProps(this.key, this.props);
 

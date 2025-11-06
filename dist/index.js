@@ -1,5 +1,2 @@
-import { ClosedComponent } from "./components/closed-component";
-export default {
-    ClosedComponent
-};
+export * from "./components/closed-component.js";
 //# sourceMappingURL=index.js.map

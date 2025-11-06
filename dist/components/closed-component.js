@@ -1,5 +1,5 @@
-import {} from "./base-component";
-import normalizeKeyProps from "./util/normalizeKeyProps";
+import {} from "./base-component.js";
+import normalizeKeyProps from "./util/normalizeKeyProps.js";
 export class ClosedComponent {
     key;
     props;
