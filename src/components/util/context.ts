@@ -81,7 +81,16 @@ export default function context() {
                 if (!/^\(\)[ ]{0,}=>[ ]{0,}\{/.test(fnString))
                     throw new Error('Provided function must be a arrow fn');
 
-                return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '').replace(/}$/, '').trim();
+                return fnString
+                    .replace(/^\(\)[ ]{0,}=>[ ]{0,}\{/, '')
+                    .replace(/}$/, '')
+                    .replace(
+                        /pagebuilder\.getValueByStateId\(['"`]([0-9a-zA-Z]+)['"`]\)/ig,
+                        (_match, id) => `state${id}`
+                    )
+
+                    .trim()
+                    ;
             },
             registerScript(script: Function) {
                 const fnString = this.getFunctionCode(script);
