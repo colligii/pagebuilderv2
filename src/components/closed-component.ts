@@ -4,20 +4,25 @@ import normalizeKeyProps from "./util/normalizeKeyProps.js";
 export class ClosedComponent implements BaseComponent {
     key: string;
     props?: { [p: string]: string }
+    components: BaseComponent[]
 
-    constructor({ key, props }: ClosedComponent) {
+    constructor({ key, props, components }: ClosedComponentProps) {
         this.key = key;
         this.props = props ?? {};
+        this.components = components ?? [];
     }
 
     build() {
         const initial = normalizeKeyProps(this.key, this.props);
 
-        return `<${initial}></${this.key}>`
+        const html = this.components.map(component => component.build()).join('');
+
+        return `<${initial}>${html ?? ''}</${this.key}>`
     }
 }
 
-export interface ClosedComponent {
+export interface ClosedComponentProps {
     key: string,
-    props?: { [p: string]: string }
+    props?: { [p: string]: string },
+    components?: BaseComponent[]
 }

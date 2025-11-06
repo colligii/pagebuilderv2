@@ -3,13 +3,16 @@ import normalizeKeyProps from "./util/normalizeKeyProps.js";
 export class ClosedComponent {
     key;
     props;
-    constructor({ key, props }) {
+    components;
+    constructor({ key, props, components }) {
         this.key = key;
         this.props = props ?? {};
+        this.components = components ?? [];
     }
     build() {
         const initial = normalizeKeyProps(this.key, this.props);
-        return `<${initial}></${this.key}>`;
+        const html = this.components.map(component => component.build()).join('');
+        return `<${initial}>${html ?? ''}</${this.key}>`;
     }
 }
 //# sourceMappingURL=closed-component.js.map

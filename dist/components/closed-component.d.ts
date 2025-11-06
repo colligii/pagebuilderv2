@@ -4,13 +4,15 @@ export declare class ClosedComponent implements BaseComponent {
     props?: {
         [p: string]: string;
     };
-    constructor({ key, props }: ClosedComponent);
+    components: BaseComponent[];
+    constructor({ key, props, components }: ClosedComponentProps);
     build(): string;
 }
-export interface ClosedComponent {
+export interface ClosedComponentProps {
     key: string;
     props?: {
         [p: string]: string;
     };
+    components?: BaseComponent[];
 }
 //# sourceMappingURL=closed-component.d.ts.map
