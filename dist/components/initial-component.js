@@ -14,6 +14,7 @@ export class InitialComponent {
         const component = this.component(ctx);
         const buildedComponent = component.build(ctx);
         const css = ctx.style.convertToCss();
+        const script = ctx.script.convertToScript();
         return `
 <!DOCTYPE html>
 <html lang="${this.lang}">
@@ -25,6 +26,7 @@ export class InitialComponent {
     </head>
     <body>
         ${buildedComponent}
+        ${script?.length ? '<script>' + script + '</script>' : ''}
     </body>
 </html>
         `;

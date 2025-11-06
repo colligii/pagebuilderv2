@@ -19,6 +19,7 @@ export class InitialComponent implements BaseComponent {
         const component = this.component(ctx);
         const buildedComponent = component.build(ctx);
         const css = ctx.style.convertToCss();
+        const script = ctx.script.convertToScript();
 
         return `
 <!DOCTYPE html>
@@ -31,6 +32,7 @@ export class InitialComponent implements BaseComponent {
     </head>
     <body>
         ${buildedComponent}
+        ${script?.length ? '<script>'+script+'</script>' : '' }
     </body>
 </html>
         `

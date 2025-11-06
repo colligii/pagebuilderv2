@@ -4,10 +4,18 @@ export default function context(): {
         convertToCss(): string;
         registerBreakPoint(breakpointName: string, condition: string): string;
     };
+    script: {
+        registerScript(script: string): string;
+        convertToScript(): string;
+    };
 };
 export interface Style {
     registerCss(key: string, value: string): string;
     registerBreakPoint(breakpointName: string, condition: string): string;
+}
+export interface Script {
+    convertToScript(): string;
+    registerScript(script: string): string;
 }
 export interface Context {
     style: Style;

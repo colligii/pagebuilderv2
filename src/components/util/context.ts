@@ -71,14 +71,33 @@ export default function context() {
         }
     }
 
+    function Script() {
+        const scripts: string[] = [];
+        return {
+            registerScript(script: string) {
+                scripts.push(script);
+                return script;
+            },
+            convertToScript() {
+                return scripts.join('\n');
+            }
+        }
+    }
+
     return {
-        style: Style()
+        style: Style(),
+        script: Script()
     }
 }
 
 export interface Style {
     registerCss(key: string, value: string): string
     registerBreakPoint(breakpointName: string, condition: string): string
+}
+
+export interface Script {
+    convertToScript(): string
+    registerScript(script: string): string
 }
 
 export interface Context {
