@@ -111,7 +111,6 @@ export default function context() {
                 if (!stateChangeFunction[`state${stateId}`])
                     throw new Error("State with this id is not defined");
                 const fnStr = this.getFunctionCode(fn);
-                console.log(fnStr, stateChangeFunction[`state${stateId}`]);
                 stateChangeFunction[`state${stateId}`]?.push(`${fnStr} = state${stateId}`);
                 return fnStr;
             }
@@ -142,7 +141,7 @@ export default function context() {
         let title;
         return {
             setTitle(t) {
-                if (t instanceof State) {
+                if (typeof t !== 'string' && t?.type === 'state') {
                     title = String(t.defaultValue);
                     t.registerChange(() => { document.body.title; });
                 }

@@ -4,6 +4,7 @@ export function State(defVal: string, ctx: Context, stateId: string) {
     ctx.script.registerState(stateId, defVal);
 
     return {
+        type: 'state',
         get defaultValue() {
             return defVal;
         },
@@ -15,6 +16,7 @@ export function State(defVal: string, ctx: Context, stateId: string) {
 }
 
 export interface State {
+    type: string;
     defaultValue: string;
     registerChange(fn: Function): string
 }
