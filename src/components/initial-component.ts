@@ -1,8 +1,9 @@
-import { type BaseComponent } from "./base-component.js";
+import { type AsyncBaseComponent, type BaseComponent } from "./base-component.js";
 import type { Context } from "./util/context.js";
 import context from "./util/context.js";
+import { minify } from 'html-minifier-terser';
 
-export class InitialComponent implements BaseComponent {
+export class InitialComponent implements AsyncBaseComponent {
     lang: string;
     title: string;
     component: (context: Context) => BaseComponent;
@@ -22,21 +23,29 @@ export class InitialComponent implements BaseComponent {
         const script = ctx.script.convertToScript();
         const title = ctx.page.getTitle() ?? this.title;
 
-        return `
+        return minify(
+            `
 <!DOCTYPE html>
 <html lang="${this.lang}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
-        ${css?.length ? '<style>'+css+'</style>' : '' }
+        ${css?.length ? '<style>' + css + '</style>' : ''}
     </head>
     <body>
         ${buildedComponent}
-        ${script?.length ? '<script>'+script+'</script>' : '' }
+        ${script?.length ? '<script>' + script + '</script>' : ''}
     </body>
 </html>
-        `
+        `,
+            {
+                removeComments: true,
+                collapseWhitespace: true,
+                minifyCSS: true,
+                minifyJS: true
+            }
+        )
     }
 }
 

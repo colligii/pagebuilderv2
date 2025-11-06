@@ -1,5 +1,6 @@
 import {} from "./base-component.js";
 import context from "./util/context.js";
+import { minify } from 'html-minifier-terser';
 export class InitialComponent {
     lang;
     title;
@@ -16,7 +17,7 @@ export class InitialComponent {
         const css = ctx.style.convertToCss();
         const script = ctx.script.convertToScript();
         const title = ctx.page.getTitle() ?? this.title;
-        return `
+        return minify(`
 <!DOCTYPE html>
 <html lang="${this.lang}">
     <head>
@@ -30,7 +31,12 @@ export class InitialComponent {
         ${script?.length ? '<script>' + script + '</script>' : ''}
     </body>
 </html>
-        `;
+        `, {
+            removeComments: true,
+            collapseWhitespace: true,
+            minifyCSS: true,
+            minifyJS: true
+        });
     }
 }
 //# sourceMappingURL=initial-component.js.map

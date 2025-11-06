@@ -19,5 +19,9 @@
   "description": "",
   "devDependencies": {
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/html-minifier-terser": "^7.0.2",
+    "html-minifier-terser": "^7.2.0"
   }
 }

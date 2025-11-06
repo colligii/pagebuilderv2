@@ -1,11 +1,11 @@
-import { type BaseComponent } from "./base-component.js";
+import { type AsyncBaseComponent, type BaseComponent } from "./base-component.js";
 import type { Context } from "./util/context.js";
-export declare class InitialComponent implements BaseComponent {
+export declare class InitialComponent implements AsyncBaseComponent {
     lang: string;
     title: string;
     component: (context: Context) => BaseComponent;
     constructor({ lang, title, component }: InitialComponentProps);
-    build(): string;
+    build(): Promise<string>;
 }
 export interface InitialComponentProps {
     lang: string;
