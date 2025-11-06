@@ -1,9 +1,9 @@
 {
   "name": "pagebuilderv2",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
     "url": "https://github.com/colligii/pagebuilderv2/issues"
   },
   "homepage": "https://github.com/colligii/pagebuilderv2#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
 }
