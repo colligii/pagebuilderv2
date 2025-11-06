@@ -59,9 +59,16 @@ export default function context() {
     }
     function Script() {
         const scripts = [];
+        function getFunctionCode(fn) {
+            const fnString = fn.toString();
+            if (/^\(\)[ ]{0,}=>[ ]{0,}/.test(fnString))
+                throw new Error('Provided function must be a arrow fn');
+            return fnString.replace(/^\(\)[ ]{0,}=>[ ]{0,}/, '').replace(/}$/, '');
+        }
         return {
             registerScript(script) {
-                scripts.push(script);
+                const fnString = getFunctionCode(script);
+                scripts.push(fnString);
                 return script;
             },
             convertToScript() {

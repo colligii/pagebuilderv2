@@ -5,7 +5,7 @@ export default function context(): {
         registerBreakPoint(breakpointName: string, condition: string): string;
     };
     script: {
-        registerScript(script: string): string;
+        registerScript(script: Function): Function;
         convertToScript(): string;
     };
 };
@@ -15,7 +15,7 @@ export interface Style {
 }
 export interface Script {
     convertToScript(): string;
-    registerScript(script: string): string;
+    registerScript(script: Function): string;
 }
 export interface Context {
     style: Style;
