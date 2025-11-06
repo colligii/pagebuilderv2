@@ -34,9 +34,18 @@ export class InitialComponent {
         `, {
             collapseWhitespace: true,
             removeComments: true,
+            minifyCSS: true,
             minifyJS: {
-                compress: true,
-                mangle: true
+                compress: {
+                    passes: 3,
+                    inline: true,
+                    dead_code: true,
+                    unused: true,
+                    toplevel: true,
+                },
+                mangle: {
+                    toplevel: true
+                },
             }
         });
     }
