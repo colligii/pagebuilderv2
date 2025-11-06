@@ -42,15 +42,15 @@ export default function context() {
                 }
             },
             convertToCss(): string {
-                let styles: string[] = [];
+                let stylesArr: string[] = [];
 
-                styles = [...Object.entries(styles).map(([css, className]) => {
+                stylesArr = [...Object.entries(styles).map(([css, className]) => {
                     return `.${className} { ${css} }`
                 })];
 
                 const breakpointsStylesArr = Object.entries(breakPointsStyles);
                 
-                styles = [...styles, 
+                stylesArr = [...stylesArr, 
                     ...breakpointsStylesArr.map(([breakpoint, value]) => {
                         const allCss = Object.entries(value);
                         return `${breakpoints[breakpoint]} {\n ${
@@ -61,7 +61,7 @@ export default function context() {
                     })
                 ]
 
-                return styles.join('\n')
+                return stylesArr.join('\n')
             },
             registerBreakPoint(breakpointName: string, condition: string) {
                 breakpoints[breakpointName] = condition;

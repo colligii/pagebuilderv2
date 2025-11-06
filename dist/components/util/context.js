@@ -36,12 +36,12 @@ export default function context() {
                 }
             },
             convertToCss() {
-                let styles = [];
-                styles = [...Object.entries(styles).map(([css, className]) => {
+                let stylesArr = [];
+                stylesArr = [...Object.entries(styles).map(([css, className]) => {
                         return `.${className} { ${css} }`;
                     })];
                 const breakpointsStylesArr = Object.entries(breakPointsStyles);
-                styles = [...styles,
+                stylesArr = [...stylesArr,
                     ...breakpointsStylesArr.map(([breakpoint, value]) => {
                         const allCss = Object.entries(value);
                         return `${breakpoints[breakpoint]} {\n ${allCss.map(([css, className]) => {
@@ -49,7 +49,7 @@ export default function context() {
                         }).join('\n')} \n}\n`;
                     })
                 ];
-                return styles.join('\n');
+                return stylesArr.join('\n');
             },
             registerBreakPoint(breakpointName, condition) {
                 breakpoints[breakpointName] = condition;
