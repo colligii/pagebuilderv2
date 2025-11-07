@@ -34,7 +34,7 @@ export class InitialComponent {
         `, {
             collapseWhitespace: true,
             removeComments: true,
-            minifyCSS: true,
+            minifyCSS: { level: 2 },
             minifyJS: {
                 compress: {
                     passes: 3,
