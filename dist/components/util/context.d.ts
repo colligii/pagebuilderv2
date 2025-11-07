@@ -2,6 +2,7 @@ import { State } from "./state.js";
 export default function context(): {
     style: {
         registerCss(key: string, value: string): string;
+        addCustomStyle(style: string): string;
         convertToCss(): string;
         registerBreakPoint(breakpointName: string, condition: string): string;
     };
@@ -24,6 +25,7 @@ export default function context(): {
 };
 export interface Style {
     registerCss(key: string, value: string): string;
+    addCustomStyle(style: string): string;
     registerBreakPoint(breakpointName: string, condition: string): string;
 }
 export interface Script {

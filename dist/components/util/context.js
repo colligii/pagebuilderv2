@@ -6,6 +6,7 @@ export default function context() {
         const styles = {};
         const breakpoints = {};
         const breakPointsStyles = {};
+        const customStyles = [];
         function getCodeToStyle() {
             if (counter === 0) {
                 counter++;
@@ -36,11 +37,16 @@ export default function context() {
                     return styles[`${key}: ${value};`];
                 }
             },
+            addCustomStyle(style) {
+                customStyles.push(style);
+                return style;
+            },
             convertToCss() {
                 let stylesArr = [];
                 stylesArr = [...Object.entries(styles).map(([css, className]) => {
                         return `.${className} { ${css} }`;
                     })];
+                stylesArr = [...stylesArr, ...customStyles];
                 const breakpointsStylesArr = Object.entries(breakPointsStyles);
                 stylesArr = [...stylesArr,
                     ...breakpointsStylesArr.map(([breakpoint, value]) => {

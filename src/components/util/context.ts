@@ -8,6 +8,7 @@ export default function context() {
         const styles: { [p: string]: string } = {};
         const breakpoints: { [p: string]: string } = {};
         const breakPointsStyles: { [p: string]: { [p: string]: string } } = {};
+        const customStyles: string[] = [];
 
         function getCodeToStyle() {
             if (counter === 0) {
@@ -43,12 +44,18 @@ export default function context() {
                     return styles[`${key}: ${value};`] as string;
                 }
             },
+            addCustomStyle(style: string) {
+                customStyles.push(style);
+                return style;
+            },
             convertToCss(): string {
                 let stylesArr: string[] = [];
 
                 stylesArr = [...Object.entries(styles).map(([css, className]) => {
                     return `.${className} { ${css} }`
                 })];
+
+                stylesArr = [...stylesArr, ...customStyles];
 
                 const breakpointsStylesArr = Object.entries(breakPointsStyles);
 
@@ -204,7 +211,8 @@ export default function context() {
 }
 
 export interface Style {
-    registerCss(key: string, value: string): string
+    registerCss(key: string, value: string): string,
+    addCustomStyle(style: string): string
     registerBreakPoint(breakpointName: string, condition: string): string
 }
 
