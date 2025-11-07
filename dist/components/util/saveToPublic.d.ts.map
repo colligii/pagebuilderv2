@@ -1,1 +1,1 @@
-{"version":3,"file":"saveToPublic.d.ts","sourceRoot":"","sources":["../../../src/components/util/saveToPublic.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,OAAO,UAAU,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE,SAAS,EAAE,MAAM,QAWnE"}
+{"version":3,"file":"saveToPublic.d.ts","sourceRoot":"","sources":["../../../src/components/util/saveToPublic.ts"],"names":[],"mappings":"AAEA,wBAAgB,YAAY,CAAC,IAAI,EAAE,MAAM,EAAE,SAAS,EAAE,MAAM,QAW3D"}

@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
-export default function saveToPublic(path: string, component: string) {
+export function saveToPublic(path: string, component: string) {
     const splittedPath = path.split('/');
     const [ file, ...arrPath ] = splittedPath.reverse();
 
